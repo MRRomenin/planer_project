@@ -8,7 +8,7 @@ export class AppController {
   @Post()
   @Header('Cache-Control', 'no-store')
   create(): string {
-    return 'This action adds a new planer';
+    return 'This action adds a planer';
   }
 
   @Get('abcd/*')
