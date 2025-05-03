@@ -1,0 +1,11 @@
+import { IsString, IsEmail, MinLength } from 'class-validator';
+
+export class CreateUserDto {
+
+  @IsEmail()
+  readonly email: string;
+
+  @IsString()
+  @MinLength(3)
+  readonly password: string;
+}
