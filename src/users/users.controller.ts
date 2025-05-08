@@ -1,6 +1,7 @@
-import {Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe } from '@nestjs/common';
+import {Controller, Get, Post, Body, Param, Delete, Put, ParseIntPipe} from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './create-user.dto';
+import { UpdateUserDto } from './update-user.dto';
 // import { User } from './user.entity';
 
 @Controller('users')
@@ -22,13 +23,13 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
-  // @Put(':id')
-  // update(
-  //   @Param('id', ParseIntPipe) id: number,
-  //   @Body() updateUserDto: UpdateUserDto,
-  // ) {
-  //   return this.usersService.update(id, updateUserDto);
-  // }
+  @Put(':id')
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.usersService.update(id, updateUserDto);
+  }
 
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
@@ -40,5 +41,11 @@ export class UsersController {
 
 // @Controller('users/{:id}/columns')
 // export class columns {
-//   constructor(private readonly usersService: UsersService) {}  
+//   constructor(private readonly usersService: UsersService) {}
+
+//   @Get(':id')
+//   findAll() {
+//     return this.usersService.findAll();
+//   }
+  
 // }

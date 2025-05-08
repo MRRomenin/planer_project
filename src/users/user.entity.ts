@@ -12,3 +12,16 @@ export class User {
   password: string;
 
 }
+
+// @Entity()
+// export class Columns {
+//   @PrimaryGeneratedColumn()
+//   id: number;
+
+//   @Column()
+//   title_colum: string;
+
+//   @Column()
+//   user_id: number;
+
+// }

@@ -2,7 +2,10 @@ import { Injectable, NotFoundException, HttpException, HttpStatus} from '@nestjs
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './user.entity';
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './create-user.dto';
+import { UpdateUserDto } from './update-user.dto';
+
 
 @Injectable()
 export class UsersService {
@@ -12,6 +15,14 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
+    const saltRounds = 10;
+
+    // Хэшируем пароль
+    const hashedPassword = await bcrypt.hash(createUserDto.password, saltRounds);
+  
+    // Заменяем обычный пароль на хэш
+    createUserDto.password = hashedPassword;
+  
     const newUser = this.usersRepository.create(createUserDto);
     return this.usersRepository.save(newUser);
   }
@@ -31,6 +42,7 @@ export class UsersService {
   async getByEmail(email: string) {
     const user = await this.usersRepository.findOne({
       where: { email },
+      select: ['id', 'email', 'password'] 
     });
     if (user) {
       return user;
@@ -39,10 +51,10 @@ export class UsersService {
   }
   
 
-  // async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-  //   await this.usersRepository.update(id, updateUserDto);
-  //   return this.findOne(id);
-  // }
+  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    await this.usersRepository.update(id, updateUserDto);
+    return this.findOne(id);
+  }
 
   async remove(id: number): Promise<void> {
     const result = await this.usersRepository.delete(id);
