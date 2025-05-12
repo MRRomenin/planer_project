@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { ColumnEntity } from '../columns/columns.entity';
 
-@Entity()
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,17 +12,9 @@ export class User {
   @Column()
   password: string;
 
+  @OneToMany(() => ColumnEntity, ColumnEntity => ColumnEntity.user)
+  columns: ColumnEntity[];
+
 }
 
-// @Entity()
-// export class Columns {
-//   @PrimaryGeneratedColumn()
-//   id: number;
 
-//   @Column()
-//   title_colum: string;
-
-//   @Column()
-//   user_id: number;
-
-// }

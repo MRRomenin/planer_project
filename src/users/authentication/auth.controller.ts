@@ -2,6 +2,7 @@ import { Body, Controller, Post, HttpCode, HttpStatus, Get, UseGuards, Request }
 import { AuthService } from './auth.service';
 import { SignInDto } from './DTO/sign-in.dto';
 import { AuthGuard } from './auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 
 @Controller('auth')
@@ -19,6 +20,7 @@ export class AuthController {
     return this.authService.signIn(signInDto);
   }
 
+  @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard)
   @Get('profile')
   getProfile(@Request() req) {
