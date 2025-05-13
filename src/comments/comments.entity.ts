@@ -7,7 +7,7 @@ export class CommentEntity {
   id: number;
 
   @Column('text')
-  text: string;
+  comment: string;
 
   @ManyToOne(() => CardEntity, CardEntity => CardEntity.comments, { onDelete: 'CASCADE' })
   card: CardEntity;

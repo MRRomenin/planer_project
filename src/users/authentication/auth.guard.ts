@@ -28,10 +28,10 @@ import {
        );
        // 💡 We're assigning the payload to the request object here
        // so that we can access it in our route handlers
-       console.log('JWT Payload:', payload);
+      //  console.log('JWT Payload:', payload);
 
        request['user'] = payload;
-       console.log('User in request:', request['user']);
+      //  console.log('User in request:', request['user']);
      } catch {
        throw new UnauthorizedException();
      }

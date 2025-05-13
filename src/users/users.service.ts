@@ -52,6 +52,16 @@ export class UsersService {
   
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
+    const saltRounds = 10;
+
+    if (updateUserDto.password) {
+    // Параметр password строка
+    const hashedPassword = await bcrypt.hash(updateUserDto.password, saltRounds);
+    
+    // Заменяем пароль в dto на хэшированный
+    updateUserDto.password = hashedPassword;
+  }
+
     await this.usersRepository.update(id, updateUserDto);
     return this.findOne(id);
   }

@@ -13,18 +13,18 @@ export class AuthService {
 
     const user = await this.usersService.getByEmail(email);
 
-    console.log('User from DB:', user);
-    console.log('Email:', email);
-    console.log('User password:', user.password);
-    console.log('Provided password:', password);
+    // console.log('User from DB:', user);
+    // console.log('Email:', email);
+    // console.log('User password:', user.password);
+    // console.log('Provided password:', password);
     if (!user || !user.password || !password) {
-      console.log('User not found');
+      // console.log('User not found');
       throw new UnauthorizedException('Invalid credentials');
     }
     
     const isPasswordMatching = await bcrypt.compare(password, user.password);
     if (!isPasswordMatching) {
-      console.log('Password mismatch');
+      // console.log('Password mismatch');
       throw new UnauthorizedException('Invalid credentials');
     }
   

@@ -1,0 +1,6 @@
+type: 'postgres',
+host: 'localhost',
+port: 5432,
+username: 'roman',
+password: '12345',
+database: 'db_dependence',
